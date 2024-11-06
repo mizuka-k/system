@@ -17,6 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
         'name',
         'email',
@@ -42,4 +43,36 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function items() {
+        return $this->hasMany(Search::class);
+    }
+
+    public static $editNameRules = [
+        'name' => 'required|max:100'
+    ];
+
+    public static $editNameRulesMessage = [
+        'name.required' => '名前は必須です。',
+    ];
+
+    public static $editEmailRules = [
+        'email' => 'required|email'
+    ];
+
+    public static $editEmailRulesMessage = [
+        'email.required' => 'メールアドレスは必須です。',
+        'email.email' => 'メールアドレスの形式で入力してください。'
+    ];
+
+    public static $editPasswordRules = [
+        'password' => 'confirmed|required|min:6'
+    ];
+    
+    public static $editPasswordRulesMessage = [
+        'password.confirmed' => 'パスワードが一致しません。',
+        'password.required' => 'パスワードは必須です。',
+        'password.min' => 'パスワードは6文字以上で入力してください。'
+    ];
+
 }
