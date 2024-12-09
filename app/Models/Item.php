@@ -24,4 +24,8 @@ class Item extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getCategoryNameAttribute() {
+        return config('category.'.$this->category_id);
+    }
+
 }

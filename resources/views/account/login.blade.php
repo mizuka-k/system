@@ -37,11 +37,13 @@
                     <!-- パスワード -->
                     <div>
                         <label for="password" class="col-form-label">パスワード</label>
-                        <input class="form-control p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-                                type="password" 
-                                name="password"
-                                id="textPassword">
-                        <!-- <input type="button" id="buttonPassword" value="表示" onclick="pushHideButton();"> -->
+                        <div class="position-relative p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <input class="form-control p-1 rounded bg-gray-50 border border-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
+                                    type="password" 
+                                    name="password"
+                                    id="password">
+                            <i id="eye1" class="fa-regular fa-eye toggle-eye position-absolute translate-middle top-50 end-0"></i>
+                        </div>
 
                         @error('password')
                             <div class="text-danger">{{ $message }}</div>
@@ -54,8 +56,13 @@
                 <div class="d-flex justify-content-center">
                     <a class="mt-2 text-secondary" href="{{ route('register') }}">会員登録がまだの方はこちら</a>
                 </div>
+                <div class="d-flex justify-content-center mt-2">
+                    <a class="mt-2 text-secondary" href="{{ route('password.request') }}">パスワードをお忘れの方はこちら</a>
+                </div>
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/password.js') }}"></script>
     @endsection
 </x-app>

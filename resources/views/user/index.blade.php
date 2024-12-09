@@ -18,25 +18,27 @@
                 {{ session('successMessage' )}}
             </div>
         @endif
+        <!-- 検索機能 -->
+        <div class="mb-3">
+            <form method="get" action="{{ route('user.search') }}" class="row" >
+                @csrf
+                <div class="col-3">
+                    <input class="form-control" type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="名前で検索">
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="col-auto btn btn-secondary">検索</button>
+                </div>
+            </form>
+        </div>
         <div class="table table-responsive">
             <table class="table align-middle">
-                <!-- 検索機能 -->
-                <form action="{{ route('user.search') }}" method="GET">
-                    @csrf
-                    <input type="text" name="word">
-                    <input type="submit" value="検索">
-                </form>
-                <form action="{{ route('user.index') }}">
-                    <button class="btn btn-light m-2" type="submit" name="sort" value="@if(!isset($sort) || $sort !== '1') 1 @elseif ($sort === '1') 2 @endif">登録日順</button>
-                    <button class="btn btn-light" type="submit" name="sort" value="3">あいうえお順</button>
-                </form>
-
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">名前</th>
                         <th scope="col">メールアドレス</th>
                         <th scope="col">登録日時</th>
+                        <th scope="col">ステータス</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -56,9 +58,18 @@
                             <td>
                                 <p class="m-0">{{ $user->created_at }}</p>
                             </td>
+                            <td>
+                                <p class="m-0">
+                                    @if($user->role == 0)
+                                    <div>一般</div>
+                                    @elseif($user->role == 1)
+                                    <div>管理者</div>
+                                    @endif
+                                </p>
+                            </td>
                             <td >
                                 <p class="m-0 align-middle">
-                                    <a class="link-primary" href=""><button type="button" class="btn btn-outline-info">詳細</button></a>
+                                    <a class="link-primary" href="{{ route('user.edit',$user) }}"><button type="button" class="btn btn-outline-info">詳細</button></a>
                                 </p>
                             </td>
                             <td>
@@ -76,7 +87,6 @@
             </table>
             <div class="d-flex justify-content-center">
                 {{ $users->links('vendor.pagination.bootstrap-4') }}
-                <!-- {{ $users->links('vendor.pagination.topics') }} -->
             </div>
             <div class="d-flex justify-content-center mb-4">
                 {{ '全'.$users->total().'件' }}

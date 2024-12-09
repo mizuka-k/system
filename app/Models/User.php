@@ -6,7 +6,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\EmailVerificationController;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use App\Notifications\ResetPasswordNotification;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -23,6 +26,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'role',
+        'onetime_token',
+        'onetime_expiration'
     ];
 
     /**
@@ -33,6 +39,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'onetime_token',
+        'onetime_expiration'
     ];
 
     /**
@@ -45,9 +53,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function items() {
-        return $this->hasMany(Search::class);
-    }
+    // public function items() {
+    //     return $this->hasMany(Search::class);
+    // }
 
 
 }

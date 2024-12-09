@@ -9,6 +9,30 @@
         <div class="d-flex justify-content-center m-4 p-4">
             <h1 class="fs-2 fw-bold">商品一覧</h1>
         </div>
+
+        <!-- 検索機能 -->
+        <div class="mb-3">
+            <form method="get" action="{{ route('search.index') }}" class="row" >
+                @csrf
+                <div class="col-3">
+                    <select name="type" class="form-select col-auto" >
+                        <option value="">種別</option>
+                        <option value="1"{{ request('type') == '1' ? 'selected' : '' }}>果物</option>
+                        <option value="2"{{ request('type') == '2' ? 'selected' : '' }}>野菜</option>
+                        <option value="3"{{ request('type') == '3' ? 'selected' : '' }}>精肉</option>
+                        <option value="4"{{ request('type') == '4' ? 'selected' : '' }}>鮮魚</option>
+                        <option value="5"{{ request('type') == '5' ? 'selected' : '' }}>その他</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <input class="form-control" type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="キーワードで検索">
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="col-auto btn btn-secondary">検索</button>
+                </div>
+            </form>
+        </div>
+
         <div class="table table-responsive">
             <table class="table align-middle">
                 <thead>
@@ -27,14 +51,24 @@
                                 <p class="m-0">{{ $item->name }}</p>
                             </td>
                             <td>
-                                <p class="m-0">{{ $item->type }}</p>
+                                <p class="m-0">@if($item->type == 1)
+                                <div>果物</div>
+                                @elseif($item->type == 2)
+                                <div>野菜</div>
+                                @elseif($item->type == 3)
+                                <div>精肉</div>
+                                @elseif($item->type == 4)
+                                <div>鮮魚</div>
+                                @elseif($item->type == 5)
+                                <div>その他</div>
+                                @endif
                             </td>
                             <td>
                                 <p class="m-0">{{ $item->detail }}</p>
                             </td>
                             <td >
                                 <p class="m-0 align-middle">
-                                    <a class="link-primary" href=""><button type="button" class="btn btn-outline-info">詳細</button></a>
+                                    <a class="link-primary" href="{{ route('search.show',$item) }}"><button type="button" class="btn btn-outline-info">詳細</button></a>
                                 </p>
                             </td>
                         </tr>
@@ -42,11 +76,14 @@
                     @endforeach
                 </tbody>
             </table>
+            @if($itemCount == 0)
+                <p class="text-center py-4">データがありません。</p>
+            @endif
             <div class="d-flex justify-content-center">
-        
+            {{ $items->links('vendor.pagination.bootstrap-4') }}
             </div>
             <div class="d-flex justify-content-center mb-4">
-                
+                {{ '全'.$items->total().'件' }}
             </div>
         </div>
 </div>

@@ -15,7 +15,7 @@
                     {{ session('alertMessage')}}
                 </div>
             @endif
-            <div class="row">
+            <div class="form-group">
                 <form class="col-5 mx-auto p-3" method="POST" action="{{ route('item.store') }}" enctype="multipart/form-data">
                     @csrf
                     <!-- カテゴリー -->
@@ -23,39 +23,30 @@
                         <div>
                             <label for="type" class="col-form-label">カテゴリー</label><span class="ms-2 badge text-bg-danger">必須</span>
                         </div>
-                        <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" id="type" name="type" value="0">
-                            <label class="form-check-label" for="type">
-                                果物
-                            </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="fruits" value="0" {{ old('fruits') == '0' ? 'checked' : '' }} checked>
+                            <label class="form-check-label" for="fruits">果物</label>
                         </div>
-                        <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" id="type" name="type" value="1">
-                            <label class="form-check-label" for="type">
-                                野菜
-                            </label>
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" id="vegetable" value="1" {{ old('vegetable') == '1' ? 'checked' : '' }} >
+                            <label class="form-check-label" for="vegetable">野菜</label>
                         </div>
-                        <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" id="type" name="type" value="2">
-                            <label class="form-check-label" for="type">
-                                精肉
-                            </label>
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" id="meat" value="2" {{ old('meat') == '2' ? 'checked' : '' }} >
+                            <label class="form-check-label" for="meat">精肉</label>
                         </div>
-                        <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" id="type" name="type" value="3">
-                            <label class="form-check-label" for="type">
-                                鮮魚
-                            </label>
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" id="fish" value="3" {{ old('fish') == '3' ? 'checked' : '' }} >
+                            <label class="form-check-label" for="fish">鮮魚</label>
                         </div>
-                        <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" id="type" name="type" value="4">
-                            <label class="form-check-label" for="type">
-                                その他
-                            </label>
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" id="others" value="4" {{ old('others') == '4' ? 'checked' : '' }} >
+                            <label class="form-check-label" for="others">その他</label>
                         </div>
                     </div>
-                    
-
+                    @error('type')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                     <!-- 商品名 -->
                     <div class="mb-1">
                         <label for="name" class="col-form-label">商品名</label><span class="ms-2 badge text-bg-danger">必須</span>
@@ -63,7 +54,7 @@
                         type="text" 
                         id="name" 
                         name="name" 
-                        value="">
+                        value="{{ old('name')}}">
                         @error('name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -77,7 +68,8 @@
                         type="text" 
                         id="price" 
                         name="price"
-                        id="price">
+                        id="price"
+                        value="{{ old('price')}}">
                         @error('price')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -89,7 +81,8 @@
                         <textarea class="form-control p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
                         type="text"  
                         name="detail"
-                        id="detail">
+                        id="detail"
+                        value="{{ old('detail')}}">
                         </textarea>
                         @error('detail')
                             <div class="text-danger">{{ $message }}</div>

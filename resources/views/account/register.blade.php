@@ -1,8 +1,10 @@
 <x-app>
+
 <x-slot name="title">
     会員登録画面
 </x-slot>
 @section('contents')
+
 <div class="container">
         <div class="wrapper">
             <div class="mt-4 mb-4 pt-4">
@@ -44,11 +46,14 @@
                     <!-- パスワード -->
                     <div class="mb-1">
                         <label for="password" class="col-form-label">パスワード</label><span class="ms-2 badge text-bg-danger">必須</span>
-                        <input class="form-control p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-                        type="password" 
-                        id="password" 
-                        name="password">
-                        <small id="passwordHelp" class="form-text text-muted">パスワードは6字以上で入力してください。</small>
+                        <div class="pass_box position-relative p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <input class="form-control p-1 border border-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
+                            type="password" 
+                            name="password"
+                            id="password">
+                            <i id="eye1" class="fa-regular fa-eye toggle-eye position-absolute translate-middle top-50 end-0"></i>
+                        </div>
+                        <small id="passwordHelp" class="ms-2 form-text text-muted">パスワードは6字以上で入力してください。</small>
                         @error('password')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -57,18 +62,27 @@
                     <!-- パスワード確認 -->
                     <div>
                         <label for="password_confirmation" class="col-form-label">パスワード(確認)</label><span class="ms-2 badge text-bg-danger">必須</span>
-                        <input class="form-control p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" type="password"  
-                        name="password_confirmation">
+                        <div class="position-relative p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <input class="form-control p-1  border border-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
+                            type="password"
+                            name="password_confirmation"
+                            id="password2">
+                            <i id="eye2" class="fa-regular fa-eye toggle-eye position-absolute translate-middle top-50 end-0"></i>
+                        </div>
                     </div>
+                    
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="mt-4 btn btn-primary">登録する</button>
                     </div>
                 </form>
                 <div class="d-flex justify-content-center">
-                    <a class="mt-2 text-secondary" href="{{ route('login') }}">ログイン</a>
+                    <a class="mt-2 text-secondary" href="{{ route('login') }}">ログインはこちら</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/password.js') }}"></script>
 @endsection
+
 </x-app>

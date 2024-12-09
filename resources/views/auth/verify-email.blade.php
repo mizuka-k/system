@@ -1,28 +1,35 @@
 <x-app>
-<x-slot name="title">
-    確認メール送信
-</x-slot>
-@section('contents')
-<div class="container m-auto">
-	<h1><a href="/">確認メールの送信</a></h1>
-	<div>
-		@if (session('status') === 'verification-link-sent')
+    <x-slot name="title">
+        ユーザー一覧画面
+    </x-slot>
+    @section('contents')
+
+	@if(session('successMessage'))
+		<div class="alert alert-success" role="alert">
+			{{ session('successMessage') }}
+		</div>
+	@endif
+<div class="container">
+	<div class="p-4">
 			<p>
-				登録したメールアドレスを確認してください！！
+				登録したメールアドレスにメールを送信しました。<br>
+				URLをクリックしてメールアドレスの認証をしてください。
 			</p>
-			<p ><a href="/">TOPに戻る</a></p>
-		@else
 			<p>
-				確認メールを送信してください！！
+				確認メールを紛失した場合は、確認メールを再送するボタンを押してください。
 			</p>
 			<form method="post" action="{{ route('verification.send') }}">
 				@method('post')
 				@csrf
-				<div>
-					<button type="submit">確認メールを送信</button>
+				<div class="m-4">
+					<button class="btn btn-primary" type="submit">確認メールを再送する</button>
 				</div>
 			</form>
-		@endif
+			
+			<div class="m-4">
+				<a class="text-secondary" href="/">ログイン画面に戻る</a>
+			</div>
+
 	</div>
 </div>
 @endsection
