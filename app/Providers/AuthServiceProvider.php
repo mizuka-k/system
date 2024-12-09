@@ -31,5 +31,12 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('general', function (User $user) {
             return ($user->role === 0);
         });
+
+        VerifyEmail::toMailUsing(function ($notifiable, $url) {
+            return (new MailMessage)
+                ->subject('メールアドレスの確認')
+                ->action('確認', $url)
+                ->view('emails.verify-email');
+        });
     }
 }

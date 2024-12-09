@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -48,31 +49,5 @@ class User extends Authenticatable
         return $this->hasMany(Search::class);
     }
 
-    public static $editNameRules = [
-        'name' => 'required|max:100'
-    ];
-
-    public static $editNameRulesMessage = [
-        'name.required' => '名前は必須です。',
-    ];
-
-    public static $editEmailRules = [
-        'email' => 'required|email'
-    ];
-
-    public static $editEmailRulesMessage = [
-        'email.required' => 'メールアドレスは必須です。',
-        'email.email' => 'メールアドレスの形式で入力してください。'
-    ];
-
-    public static $editPasswordRules = [
-        'password' => 'confirmed|required|min:6'
-    ];
-    
-    public static $editPasswordRulesMessage = [
-        'password.confirmed' => 'パスワードが一致しません。',
-        'password.required' => 'パスワードは必須です。',
-        'password.min' => 'パスワードは6文字以上で入力してください。'
-    ];
 
 }

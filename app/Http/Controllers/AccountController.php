@@ -8,6 +8,7 @@ use App\Models\User;
 use \Illuminate\Support\Facades\Auth; 
 use App\Http\Requests\AccountRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class AccountController extends Controller
 {
@@ -21,6 +22,7 @@ class AccountController extends Controller
         $validated = $request->all();
         $user = User::create($validated);
 
+        event(new Registered($user));
         return redirect()->route('login')->with('successMessage','登録が完了しました。ログインしてください。');
     }
 
@@ -76,40 +78,46 @@ class AccountController extends Controller
         return view('account.profile', compact('auth'));
     }
     // プロフィール編集画面表示
-    public function showEdit(Request $request,$page) {
+    public function showEdit(Request $request) {
         $auth = Auth::user();
-        $page = $request->page;
-        return view('account.edit',compact('auth','page'));
+        return view('account.edit',compact('auth'));
     }
-    // プロフィール編集
-    public function profileUpdate(Request $request,$id) {
-        // 選択ページ情報取得
-        $page = $request->page;
-        
-        // 選択ページでバリデーションを選ぶ
-        if($page == 'name') {
-            $rule = User::$editNameRules;
-            $message = User::$editNameRulesMessage;
-        }elseif($page == 'email') {
-            $rule = User::$editEmailRules;
-            $message = User::$editEmailRulesMessage;
-        }elseif($page == 'password') {
-            // 現在のパスワードが正しいか確認する
-            if(!(Hash::check($request->get('current_password'), Auth::user()->password))) {
-                return back()->with('alertMessage','現在のパスワードが間違っています。');
-            }
-            $rule = User::$editPasswordRules;
-            $message = User::$editPasswordRulesMessage;
+// プロフィール編集
+public function profileUpdate(Request $request, User $user) {
+    $user = Auth::user();
+    //バリデーションチェック
+    $validated = $request->validate([
+        'name' => 'required|string|max:100',
+        'email' => 'required|email|unique:users,email,'.Auth::user()->email.',email',
+        'password' => (Auth::user()->password) ? 'string|min:6|confirmed|nullable' : 'required|min:6|confirmed',
+    ],
+    [
+        'name.required' => '名前は必須です。',
+        'name.max' => '名前は100文字以下で入力してください。',
+        'email.required' => 'メールアドレスは必須です。',
+        'email' => '有効なメールアドレスではありません。',
+        'email.unique' => 'このメールアドレスはすでに使用されています。',
+        'password.min' => 'パスワードは6字以上255字以下で入力してください。',
+        'password.confirmed' => '入力したパスワードがパスワード（確認）と一致しません。'
+    ]);
+    // パスワードの値に入力があれば
+    if ($validated['password']) {
+        // 現在のパスワードが合っているか確認
+        if(!(Hash::check($request->get('current_password'), Auth::user()->password))) {
+            return back()->with('alertMessage','現在のパスワードが間違っています。');
         }
-        // バリデーションチェック
-        $validated = $request->validate($rule,$message);
+        // パスワードハッシュ化
+        $validated['password'] = Hash::make($validated['password']);
         
-        // アップデート
-        Auth::user()->update($validated);
-
-        $request->session()->flash('successMessage','更新しました。');
-        return redirect()->route('profile',['$auth->id']);
+    } else {
+        // 値が無ければパラメータに含めない
+        unset($validated['password']);
     }
-
+    // dd($validated);
+    // アップデート
+    $user->update($validated);
+    $request->session()->flash('successMessage','更新しました。');
+    return redirect()->route('profile','$user->id');
+}
 
 }

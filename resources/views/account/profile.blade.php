@@ -26,9 +26,6 @@
                                 <td style="width:50%">
                                     <p class="m-0 ">{{ $auth->id }}</p>
                                 </td>
-                                <td style="width:20%">
-                                    <p class= "m-0 align-middle"></p>
-                                </td>
                             </tr>
                         </thead>
                         <thead>
@@ -36,14 +33,6 @@
                                 <th class="text-secondary" style="width:30%">名前</th>
                                 <td class="" style="width:50%">
                                     <p class="m-0">{{ $auth->name }}</p>
-                                </td>
-                                @error('name')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                                <td style="width:20%">
-                                    <p class="m-0 align-middle">
-                                        <a class="link-primary" href="{{ route('showEdit',['page' => 'name']) }}"><button type="submit" name="name" class="btn btn-outline-info">編集</button></a>
-                                    </p>
                                 </td>
                             </tr>
                         </thead>
@@ -53,14 +42,6 @@
                                 <td class="" style="width:50%">
                                     <p class="m-0">{{ $auth->email }}</p>
                                 </td>
-                                @error('email')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                                <td class="" style="width:50%">
-                                    <p class="m-0 aline-middle">
-                                        <a class="link-primary" href="{{ route('showEdit',['page' => 'email']) }}"><button type="submit" name="email" class="btn btn-outline-info">編集</button></a>
-                                    </p>
-                                </td>
                             </tr>
                         </thead>
                         <thead>
@@ -69,20 +50,18 @@
                                 <td >
                                     <p class="m-0">******</p>
                                 </td>
-                                @error('password')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                                <td>
-                                    <p class="m-0">
-                                    <a class="link-primary" href="{{ route('showEdit',['page' => 'password']) }}"><button type="submit" name="password" class="btn btn-outline-info">編集</button></a>
-                                    </p>
-                                </td>
                             </tr>
                         </thead>
                     </tbody>
+                    
                 </table>
+                <div class="d-flex justify-content-center">
+                    <a class="link-primary" href="{{ route('showEdit',auth()->user()) }}"><button type="submit" class="btn btn-outline-info">編集</button></a>
+                </div>
             </div>
         </div> 
     </div>
+</body>
+</html>
     @endsection
 </x-app>

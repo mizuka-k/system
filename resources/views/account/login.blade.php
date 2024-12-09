@@ -8,15 +8,6 @@
             <div class="m-4 pt-4 ">
                 <h1 class="text-center">商品管理システム</h1>
             </div>
-            @if($errors->any())
-            <!-- <div class="alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                    <li class="text-danger">{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div> -->
-            @endif 
             @if(session('alertMessage'))
                 <div class="mt-4 alert alert-danger" role="alert">
                     {{ session('alertMessage')}}
@@ -48,7 +39,10 @@
                         <label for="password" class="col-form-label">パスワード</label>
                         <input class="form-control p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
                                 type="password" 
-                                name="password">
+                                name="password"
+                                id="textPassword">
+                        <!-- <input type="button" id="buttonPassword" value="表示" onclick="pushHideButton();"> -->
+
                         @error('password')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror

@@ -9,6 +9,15 @@
         <div class="d-flex justify-content-center m-4 p-4">
             <h1 class="fs-2 fw-bold">ユーザー一覧</h1>
         </div>
+        @if(session('alertMessage'))
+            <div class="mt-4 alert alert-danger" role="alert">
+                {{ session('alertMessage')}}
+            </div>
+        @elseif(session('successMessage'))
+            <div class="mt-4 alert alert-success" role="alert">
+                {{ session('successMessage' )}}
+            </div>
+        @endif
         <div class="table table-responsive">
             <table class="table align-middle">
                 <!-- 検索機能 -->
@@ -53,9 +62,12 @@
                                 </p>
                             </td>
                             <td>
-                                <form action="">
-                                    <input type="submit"class="btn btn-danger btn-dell" value="削除">
+                                <form method="POST" action="{{ route('user.delete', $user->id) }}">
+                                @csrf
+                                @method('delete')
+                                    <button type="submit"class="btn btn-danger btn-dell" onclick="return confirm('本当に削除しますか？')">削除</button>
                                 </form>
+                                
                             </td>
                         </tr>
                     </thead>

@@ -43,4 +43,29 @@ class UserController extends Controller
         return view('user.index',['users' => $users]);
     }
 
+    // ユーザー情報編集画面表示
+    // public function showEdit() {
+        
+    // }
+    // ユーザー情報編集処理
+    // public function edit() {
+        
+    // }
+    // ユーザー情報削除
+    public function destroy($id) {
+        if(empty($id)){
+            \Session::flash('err_msg','データがありません。');
+            return redirect(route('user.index'));
+        }
+        try {
+            // ユーザー削除処理
+            User::destroy($id);
+        }catch(\Throwable $e) {
+            abort(500);
+        }
+        return redirect()->route('user.index')->with('successMessage','削除が完了しました。');
+
+        
+    }
+
 }

@@ -25,7 +25,7 @@
                 {{ Auth::user()->name.'様' }}
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ route('profile',Auth::user()) }}">マイページ</a></li>
+                <li><a class="dropdown-item" href="{{ route('profile',auth()->user()->id) }}">マイページ</a></li>
                 <li><a class="dropdown-item" href="{{ route('logout') }}">ログアウト</a></li>
             </ul>
             </li>
