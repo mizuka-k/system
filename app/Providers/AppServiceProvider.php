@@ -36,5 +36,8 @@ class AppServiceProvider extends ServiceProvider
                 ->action('確認', $url)
                 ->view('emails.verify-email');
         });
+        if (\App::environment(['production'])) {
+            \URL::forceScheme('https');
+        }
     }
 }
