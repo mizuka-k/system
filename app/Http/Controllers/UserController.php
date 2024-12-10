@@ -38,7 +38,7 @@ class UserController extends Controller
         
         // $users = User::all();
         $users = User::paginate(10);
-        return view('User.index', ['sort' => $sort,'users' => $users]);
+        return view('user.index', ['sort' => $sort,'users' => $users]);
     }
     // ユーザー検索
     public function search(Request $request) {
