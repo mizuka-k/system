@@ -8,22 +8,22 @@
     
     <div class="w-80 mx-auto">
         <div class="center-block ">    
-            <h1 class="p-4 m-4 text-center">商品管理システム</h1>
+            <h1 class="p-4 m-4 text-center text-success font-bold">221Foods</h1>
             @if(session('successMessage'))
                 <div class="mt-4 alert alert-success" role="alert">
                     {{ session('successMessage' )}}
                 </div>
             @endif
-                <div id="carouselExampleAutoplaying" class="carousel slide w-100 p-3" data-bs-ride="carousel" >
-                    <div class="carousel-inner" style="width: 900px; height: 600px;">
+                <div id="carouselExampleAutoplaying" class="carousel slide img-fluid" data-bs-ride="carousel" >
+                    <div class="carousel-inner">
                         <div class="carousel-item active">
-                        <img src="{{ asset('images/fruits.jpeg') }}" class="d-block w-100 h-80" alt="アスパラの画像">
+                        <img src="{{ asset('images/fruits.jpeg') }}" class="d-block img-fluid" alt="アスパラの画像">
                         </div>
                         <div class="carousel-item">
-                        <img src="{{ asset('images/asupara.jpg') }}" class="d-block w-100 h-80" alt="...">
+                        <img src="{{ asset('images/asupara.jpg') }}" class="d-block img-fluid" alt="...">
                         </div>
                         <div class="carousel-item">
-                        <img src="{{ asset('images/meat.jpeg') }}" class="d-block w-100 h-80" alt="...">
+                        <img src="{{ asset('images/meat.jpeg') }}" class="d-block img-fluid" alt="...">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
