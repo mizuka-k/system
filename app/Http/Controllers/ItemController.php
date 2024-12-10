@@ -100,7 +100,6 @@ class ItemController extends Controller
             $item->image =$name;
         }
         $validated['user_id'] = auth()->user()->id;
-        dd($validated);
         $item->update($validated);
         return redirect()->route('item.show',$item)->with('successMessage','商品を更新しました。');
 }

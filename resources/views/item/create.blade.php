@@ -24,23 +24,23 @@
                             <label for="type" class="col-form-label">カテゴリー</label><span class="ms-2 badge text-bg-danger">必須</span>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="type" id="fruits" value="0" {{ old('fruits') == '0' ? 'checked' : '' }} checked>
+                            <input class="form-check-input" type="radio" name="type" id="fruits" value="1" {{ old('fruits') == '1' ? 'checked' : '' }} checked>
                             <label class="form-check-label" for="fruits">果物</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" id="vegetable" value="1" {{ old('vegetable') == '1' ? 'checked' : '' }} >
+                        <input class="form-check-input" type="radio" name="type" id="vegetable" value="2" {{ old('vegetable') == '2' ? 'checked' : '' }} >
                             <label class="form-check-label" for="vegetable">野菜</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" id="meat" value="2" {{ old('meat') == '2' ? 'checked' : '' }} >
+                        <input class="form-check-input" type="radio" name="type" id="meat" value="3" {{ old('meat') == '3' ? 'checked' : '' }} >
                             <label class="form-check-label" for="meat">精肉</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" id="fish" value="3" {{ old('fish') == '3' ? 'checked' : '' }} >
+                        <input class="form-check-input" type="radio" name="type" id="fish" value="4" {{ old('fish') == '4' ? 'checked' : '' }} >
                             <label class="form-check-label" for="fish">鮮魚</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" id="others" value="4" {{ old('others') == '4' ? 'checked' : '' }} >
+                        <input class="form-check-input" type="radio" name="type" id="others" value="5" {{ old('others') == '5' ? 'checked' : '' }} >
                             <label class="form-check-label" for="others">その他</label>
                         </div>
                     </div>
@@ -78,12 +78,7 @@
                     <!-- 商品説明 テキストボックスにする-->
                     <div>
                         <label for="detail" class="col-form-label">商品説明</label><span class="ms-2 badge text-bg-danger">必須</span>
-                        <textarea class="form-control p-1 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-                        type="text"  
-                        name="detail"
-                        id="detail"
-                        value="{{ old('detail')}}">
-                        </textarea>
+                        <textarea class="form-control" rows="10" type="text" name="detail">{{ old('detail') }}</textarea>
                         @error('detail')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
