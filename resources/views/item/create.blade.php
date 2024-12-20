@@ -91,7 +91,6 @@
                         type="file"  
                         name="image"
                         id="image">
-                        </input>
                     </div>
 
                     <div class="d-flex justify-content-center">
